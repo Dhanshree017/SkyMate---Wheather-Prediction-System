@@ -1,0 +1,36 @@
+import os
+import pandas as pd
+
+# Path to your dataset directory
+dataset_dir = r"D:\WHEATHER_PREDICTION\dataset"
+
+files = [
+    "Air quality information.xlsx",
+    "Astronomical.xlsx",
+    "Location information.xlsx",
+    "Weather data.xlsx"
+]
+
+print("=" * 60)
+print("INSPECTING INDIAN WEATHER DATASET (.XLSX FILES)")
+print("=" * 60)
+
+for file in files:
+    file_path = os.path.join(dataset_dir, file)
+    
+    if os.path.exists(file_path):
+        print(f"\n📂 FILE: {file}")
+        try:
+            df = pd.read_excel(file_path)
+            print(f"   • Shape (Rows, Columns): {df.shape}")
+            print(f"   • Columns ({len(df.columns)} total): {list(df.columns)}")
+            print(f"   • Missing Values: {df.isnull().sum().sum()}")
+            print("-" * 50)
+            print(f"📊 DATA PREVIEW:")
+            print(df.head(3))
+        except Exception as e:
+            print(f"   ⚠️ Error loading {file}: {e}")
+    else:
+        print(f"\n❌ File not found: {file_path}")
+
+print("=" * 60)
